@@ -114,7 +114,8 @@ DemoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   weight_provider->setLumi(TopTriggerEfficiencyProvider::RunC,6.01);
   weight_provider->setLumi(TopTriggerEfficiencyProvider::RunD,0);
   if(jet->size() < 4 || electron->size() == 0){return;}
-  std::vector<double> weight = weight_provider->get_weight((*electron)[0].pt(), (*electron)[0].eta(), (*jet)[4].pt(), (*jet)[4].eta(), vertex->size(), jet->size(), false, TopTriggerEfficiencyProvider::NOMINAL);
+  //use kinematics of 4th leading jet (once JER and JES corrections applied)
+  std::vector<double> weight = weight_provider->get_weight((*electron)[0].pt(), (*electron)[0].eta(), (*jet)[3].pt(), (*jet)[3].eta(), vertex->size(), jet->size(), false, TopTriggerEfficiencyProvider::NOMINAL);
   std::cout << "weight is "<<(weight)[0] << " +/- "<<(weight)[1]<< std::endl;
 }
 
